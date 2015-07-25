@@ -4,9 +4,6 @@ import requests
 
 from xml.etree import cElementTree as ElementTree  # for zillow API
 
-# from django.contrib.gis.geos.error import GEOSException
-from django.contrib.gis.geos import fromstr, error
-
 from pyzillowerrors import ZillowError, ZillowFail, ZillowNoResults
 from __version__ import VERSION
 
@@ -117,15 +114,7 @@ class ZillowResults(object):
         """
         Return a (latitude, longitude) coordinate pair of the current result
         """
-        warnings.warn(
-            'The coordinate method will be depreciated in version 0.4 \
-            to remove Django from the dependencies.',
-            DeprecationWarning)
-        try:
-            return fromstr('POINT(%s %s)' % (
-                self.latitude, self.longitude), srid=4326)
-        except error.GEOSException:
-            return None
+        return (self.latitude, self.longitude)
 
     @property
     def area_unit(self):
