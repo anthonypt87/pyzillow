@@ -27,7 +27,8 @@ class ZillowWrapper(object):
         params = {
             'address': address,
             'citystatezip': zipcode,
-            'zws-id': self.api_key
+            'zws-id': self.api_key,
+            'rentzestimate': True
         }
         return self.get_data(url, params)
 
@@ -55,7 +56,6 @@ class ZillowWrapper(object):
                 headers={
                     'User-Agent': 'pyzillow/' + VERSION + ' (Python)'
                 })
-            print request.url
         except (
             requests.exceptions.ConnectionError,
             requests.exceptions.TooManyRedirects,
@@ -154,13 +154,15 @@ class GetDeepSearchResults(ZillowResults):
         # 'last_sold_price_currency': 'result/lastSoldPrice',
         'last_sold_price': 'result/lastSoldPrice',
         'zestimate_amount': 'result/zestimate/amount',
+        'rentzestimate_amount': 'result/rentzestimate/amount',
         # 'zestimate_currency': 'result/zestimate/amount/',
         'zestimate_last_updated': 'result/zestimate/last-updated',
         'zestimate_value_change': 'result/zestimate/valueChange',
         'zestimate_valuation_range_high':
         'result/zestimate/valuationRange/high',
-        'zestimate_valuationRange_low': 'result/zestimate/valuationRange/low',
+        'zestimate_valuation_range_low': 'result/zestimate/valuationRange/low',
         'zestimate_percentile': 'result/zestimate/percentile',
+        'comparables': 'result/links/comparables',
     }
 
     def __init__(self, data, *args, **kwargs):
